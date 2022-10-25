@@ -1,23 +1,72 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31515.178
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "WK4 Lab2-Country", "WK4 Lab2-Country.pyproj", "{6D5F235D-1C3D-4DDD-95A9-0945A688FD7B}"
-EndProject
-Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6D5F235D-1C3D-4DDD-95A9-0945A688FD7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D5F235D-1C3D-4DDD-95A9-0945A688FD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {26605AEE-3F4B-4356-806B-5CCE229706D9}
-	EndGlobalSection
-EndGlobal
+
+def display_menu():
+    print("COMMAND MENU")
+    print("view - View country name")
+    print("add  - Add a country")
+    print("del  - Delete a country")
+    print("exit - Exit program")
+    print()
+
+def display_codes(countries):
+    codes = list(countries.keys())
+    codes.sort()
+    codes_line = "Country codes: "
+    for code in codes:
+        codes_line += code + " "
+    print(codes_line)
+
+def view(countries):
+    display_codes(countries)
+    code = input("Enter country code: ")
+    code = code.upper()
+    if code in countries:
+        name = countries[code]
+        print(f"Country name: {name}.\n")
+    else:
+        print("There is no country with that code.\n")
+
+def add(countries):
+    code = input("Enter country code: ")
+    code = code.upper()
+    if code in countries:
+        name = countries[code]
+        print(f"{name} is already using this code.\n")
+    else:
+        name = input("Enter country name: ")
+        name = name.title()
+        countries[code] = name
+        print(f"{name} was added.\n")
+
+def delete(countries):
+    code = input("Enter country code: ")
+    code = code.upper()
+    if code in countries:
+        name = countries.pop(code)
+        print(f"{name} was deleted.\n")
+    else:
+        print("There is no country with that code.\n")
+
+def main():
+    countries = {"CA": "Canada",
+                 "US": "United States",
+                 "MX": "Mexico"}
+    
+    display_menu()
+    while True:        
+        command = input("Command: ")
+        command = command.lower()
+        if command == "view":
+            view(countries)   
+        elif command == "add":
+            add(countries)
+        elif command == "del":
+            delete(countries)  
+        elif command == "exit":
+            print("Bye!")
+            break
+        else:
+            print("Not a valid command. Please try again.\n")
+
+
+if __name__ == "__main__":
+    main()
